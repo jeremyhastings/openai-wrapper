@@ -1,7 +1,9 @@
 import json
 import openai
 from openai import OpenAI
+import logger_setup
 
+logger = logger_setup.logger
 
 class OpenAIClient:
     """
@@ -40,19 +42,26 @@ class OpenAIClient:
         Raises:
             ValueError: If the API key is not found in the configuration file.
         """
-        # Load the JSON configuration file
-        with open(self.config_file_path, 'r') as config_file:
-            config = json.load(config_file)
+        try:
+            # Load the JSON configuration file
+            with open(self.config_file_path, 'r') as config_file:
+                config = json.load(config_file)
 
-        # Access the API key
-        self.api_key = config.get('openai_api_key')
+            # Access the API key
+            self.api_key = config.get('openai_api_key', "")
 
-        # Validate the API key
-        if not self.api_key:
-            raise ValueError("API key not found in config.json")
+            # Validate the API key
+            if not self.api_key:
+                raise ValueError("API key not found in config.json")
 
-        # Set the OpenAI API key
-        openai.api_key = self.api_key
+            # Set the OpenAI API key
+            openai.api_key = self.api_key
+
+        except ValueError as e:
+            # Log the error with traceback
+            logger.error("Failed to load API key from config file.", exc_info=True)
+            # Re-raise the exception after logging
+            raise
 
     def _initialize_client(self):
         """
