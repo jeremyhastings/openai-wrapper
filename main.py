@@ -18,7 +18,7 @@ def display_menu():
     The user can also type 'EXIT' to quit the program.
     """
     print("Menu:")
-    print("1. Send question to ChatGPT")
+    print("1. Generate Text")
     print("2. Generate an image")
     print("Type 'EXIT' to quit")
     print()
