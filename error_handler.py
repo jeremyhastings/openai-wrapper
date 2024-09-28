@@ -32,13 +32,13 @@ def process_error_message(error_message_str, logger):
             # Access the message
             user_message = error_dict_final['error']['message']
             print(user_message)
-            logger.error(f"Error: {error_dict_final}")
+            logger.error(f"Error: {error_dict_final}", exc_info=True)
         except (json.JSONDecodeError, ValueError) as decode_error:
-            logger.error(f"Error decoding JSON: {decode_error}")
+            logger.error(f"Error decoding JSON: {decode_error}", exc_info=True)
             print("An internal error occurred while processing the error message.")
     else:
         print("No JSON part found in the error message.")
-        logger.error(f"Error message: {error_message_str}")
+        logger.error(f"Error message: {error_message_str}", exc_info=True)
 
 
 def handle_openai_exceptions(e, logger):
@@ -68,7 +68,7 @@ def handle_openai_exceptions(e, logger):
         # General exception handling
         user_message = "An unexpected error occurred. Please try again later."
         print(user_message)
-        logger.error(f"Unexpected error: {e}")
+        logger.error(f"Unexpected error: {e}", exc_info=True)
         return
 
     process_error_message(error_message_str, logger)
