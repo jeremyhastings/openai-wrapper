@@ -1,6 +1,7 @@
 import logger_setup
-from chatgpt_client import send_prompt_to_chatgpt
+from chatgpt_client import generate_text
 from image_client import generate_image
+from embedding_client import create_vector_embeddings
 
 # Call the function to configure logging
 logger_setup.setup_logging()
@@ -19,7 +20,8 @@ def display_menu():
     """
     print("Menu:")
     print("1. Generate Text")
-    print("2. Generate an image")
+    print("2. Generate an Image")
+    print("3. Create Vector Embeddings")
     print("Type 'EXIT' to quit")
     print()
 
@@ -44,15 +46,26 @@ if __name__ == '__main__':
             break
 
         if user_choice == '1':
-            user_input = input("Enter your prompt for ChatGPT: ")
+            user_input = input("Enter your prompt for text generation: ")
+            # Send prompt to ChatGPT and display the response
+            response = generate_text(user_input, logger)
+            if response:
+                print(response)
 
         elif user_choice == '2':
             user_input = input("Enter your prompt for image generation: ")
             # Generate image based on the prompt and display the URLs
-            generate_image(user_input, logger)
+            urls = generate_image(user_input, logger)
+            if urls:
+                for url in urls:
+                    print(url)
 
-            # Send prompt to ChatGPT and display the response
-            send_prompt_to_chatgpt(user_input, logger)
+        elif user_choice == '3':
+            user_input = input("Enter your prompt for vector embeddings: ")
+            # Create vector embeddings based on the input text
+            response = create_vector_embeddings(user_input, logger)
+            if response:
+                print(response)
 
         else:
             print("Invalid choice. Please select a valid option.")

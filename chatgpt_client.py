@@ -32,7 +32,7 @@ def wrap_text(text, width=150):
     return "\n".join(wrapped_lines)
 
 
-def send_prompt_to_chatgpt(user_input, logger):
+def generate_text(user_input, logger):
     """
     Sends a prompt to the ChatGPT model and prints the formatted response.
 
@@ -43,6 +43,9 @@ def send_prompt_to_chatgpt(user_input, logger):
     Args:
         user_input (str): The user's input to send to the ChatGPT model.
         logger (logging.Logger): The logger instance for logging errors.
+
+    Returns:
+        str: The wrapped content from the ChatGPT response.
 
     Raises:
         Exception: Handles any exceptions that occur during the API request and response processing.
@@ -63,9 +66,9 @@ def send_prompt_to_chatgpt(user_input, logger):
         # Wrap the text content
         wrapped_content = wrap_text(response_content)
 
-        # Print the formatted response content
-        print(wrapped_content)
+        return wrapped_content
 
     except Exception as e:
         # Handle any exceptions using a custom exception handler
         handle_openai_exceptions(e, logger)
+        return None

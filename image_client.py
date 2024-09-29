@@ -36,8 +36,6 @@ def generate_image(prompt, logger, n=1, size="1024x1024"):
         )
 
         urls = [image.url for image in response.data]
-        for url in urls:
-            print(url)
         return urls
 
     except Exception as e:
