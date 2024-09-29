@@ -22,7 +22,7 @@ def setup_logging():
         Call this function at the beginning of your application to configure logging.
     """
     logging.basicConfig(
-        filename='app.log',
+        filename='../app.log',
         filemode='a',  # Append mode
         format='%(asctime)s - %(levelname)s - %(message)s',
         level=logging.INFO

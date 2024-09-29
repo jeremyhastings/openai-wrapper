@@ -29,7 +29,7 @@ To get started with `openai-wrapper`, follow these steps:
 
 2. **Navigate to the project directory**:  
    ```sh
-   cd openai-wrapper
+   cd openai_wrapper
    ```
 
 3. **Install the required packages**:  
@@ -44,7 +44,8 @@ Below is an example of how to use the main components of `openai-wrapper`:
 ### Example `main.py`
 
 ```python
-import logger_setup
+
+from config import logging_setup
 from chatgpt_client import generate_text
 from image_client import generate_image
 

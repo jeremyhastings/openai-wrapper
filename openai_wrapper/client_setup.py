@@ -1,9 +1,9 @@
 import json
 import openai
 from openai import OpenAI
-import logger_setup
+from config import logging_setup
 
-logger = logger_setup.logger
+logger = logging_setup.logger
 
 class OpenAIClient:
     """

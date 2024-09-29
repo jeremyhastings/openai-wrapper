@@ -1,6 +1,6 @@
 import textwrap
-from client_setup import OpenAIClient
-from error_handler import handle_openai_exceptions
+from openai_wrapper.client_setup import OpenAIClient
+from openai_wrapper.error_handler import handle_openai_exceptions
 
 # Create an instance of OpenAIClient
 client_instance = OpenAIClient()
