@@ -1,34 +1,37 @@
 import json
 import openai
 from openai import OpenAI
-import logger_setup
+from config.logging_setup import logger
 
-logger = logger_setup.logger
 
-class OpenAIClient:
+class BaseClient:
     """
-    A client for interacting with the OpenAI API.
+    Base class for interacting with the OpenAI API.
 
-    This class is responsible for loading API configuration,
-    initializing the OpenAI client, and providing access to
-    the client for making API requests.
+    This class handles loading configuration, initializing the client,
+    and providing basic utility methods that can be used by subclasses.
 
     Attributes:
         config_file_path (str): Path to the configuration file.
         api_key (str): OpenAI API key.
         client (OpenAI): Initialized OpenAI client.
+        logger (logging.Logger): Logger instance.
     """
 
     def __init__(self, config_file_path='config.json'):
         """
-        Initializes the OpenAIClient with the given configuration file path.
+        Initializes the OpenAI client with the given configuration file path.
 
         Args:
             config_file_path (str): Path to the JSON configuration file. Default is 'config.json'.
+
+        Raises:
+            ValueError: If the API key is not found in the configuration file.
         """
         self.config_file_path = config_file_path
         self.api_key = None
         self.client = None
+        self.logger = logger  # Use the logger from logging_setup
         self._load_config()
         self._initialize_client()
 
@@ -59,7 +62,7 @@ class OpenAIClient:
 
         except ValueError as e:
             # Log the error with traceback
-            logger.error("Failed to load API key from config file.", exc_info=True)
+            self.logger.error("Failed to load API key from config file.", exc_info=True)
             # Re-raise the exception after logging
             raise
 
