@@ -1,15 +1,10 @@
-import logging
-
-from config.logging_setup import setup_logging
-from openai_wrapper.chatgpt_client import generate_text
+from config import logging_setup
+from openai_wrapper.text_client import generate_text
 from openai_wrapper.image_client import generate_image
 from openai_wrapper.embedding_client import create_vector_embeddings
 
 # Call the function to configure logging
-setup_logging()
-
-# Example of using the logger instance
-logger = logging.getLogger('main')
+logger = logging_setup.logger
 
 def display_menu():
     """
